@@ -1,0 +1,21 @@
+{% extends 'home.html'%}
+{% block i %}
+<p>Library</p>
+<p>Найденые книги по запросу</p>
+
+{% for o in books %}
+<div>
+    <a href = "{% url 'poebota:create' o.id %}"><ln>Название:</ln><ln>{{o.book_name}}</ln></a></br>
+    <ln>Автор:</ln><ln>{{o.book_autor}}</ln></br>
+    <ln>Жанр:</ln><ln>{{o.book_janr}}</ln></br>
+    <ln>Издатель:</ln><ln>{{o.book_izdat}}</ln></br>
+    <ln>№:</ln><ln>{{o.id}}</ln></br>
+    {% for a in bron %}
+    {%if o.id == a.id%}
+        <ln>Статус бронирования:</ln><ln>{{a.bron_status}}</ln></br>
+        <ln>Время бронирования:</ln><ln>{{a.bron_time}}</ln></br>
+    {%endif%}
+    {%endfor%}
+</div>
+{%endfor%}
+{% endblock %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static  'css/stylesheet.css' %}" />
+    <title>Library</title>
+</head>
+<body>
+<div>
+    <p> Сервис для бронирования книг </p>
+    {%if user.is_authenticated%}
+    <p>Здравствуйте: {{user}}</p>
+    {%else%}
+    <p> Для начала работы <a href="{% url 'login' %}">выйдите</a> в аккаунт или <a href="{% url 'register' %}">зарегистрируйтесь</a> </p>
+    {%endif%}
+</div>
+{%if user.is_authenticated%}
+<div>
+    <form method="POST">
+        {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Send" >
+    </form>
+    </div>
+    <div>
+        {%for b in books%}
+            <div>
+                <a href = "{% url 'poebota:create' b.id %}"><ln>Название:</ln><ln>{{b.book_name}}</ln></a></br>
+                <ln>Автор:</ln><ln>{{b.book_autor}}</ln></br>
+                <ln>Жанр:</ln><ln>{{b.book_janr}}</ln></br>
+                <ln>Издатель:</ln><ln>{{b.book_izdat}}</ln></br>
+                <ln>№:</ln><ln>{{b.id}}</ln></br>
+                {% for q in bron %}
+                {%if b.id == q.id%}
+                    <ln>Статус бронирования:</ln><ln>{{q.bron_status}}</ln></br>
+                    <ln>Время бронирования:</ln><ln>{{q.bron_time}}</ln></br>
+                {%endif%}
+                {%endfor%}
+            </div>
+        {%endfor%}
+    </div>
+{%endif%}
+</body>
+</html>

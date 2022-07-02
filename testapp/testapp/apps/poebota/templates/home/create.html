@@ -1,0 +1,37 @@
+{% extends 'home.html'%}
+{% block i %}
+<p>i</p>
+<title>Library</title>
+<p>Книга конкретная</p>
+<div>
+    <ln>Название:</ln><ln>{{book.book_name}}</ln></a></br>
+    <ln>Автор:</ln><ln>{{book.book_autor}}</ln></br>
+    <ln>Жанр:</ln><ln>{{book.book_janr}}</ln></br>
+    <ln>Издатель:</ln><ln>{{book.book_izdat}}</ln></br>
+    {%if bron.bron_status == "Да"%}
+    <ln type="text" name="bron_id"  id="bron_id" >№:</ln><ln>{{book.id}}</ln></br>
+        <ln name="bron_status">Статус бронирования:</ln><ln>{{bron.bron_status}}</ln></br>
+        <ln name="bron_time">Время бронирования:</ln><ln>{{bron.bron_time}}</ln></br>
+        <ln> Снять бронирование</ln></br>
+        <form method="POST">
+            {% csrf_token %}
+        <label for="id_loginreset">Логин:</label>
+        <input type="text" name="login" required="" id="id_loginreset"></br>
+        <label for="id_passwordreset">Пароль:</label>
+        <input type="text" name="password" required="" id="id_passwordreset"></br>
+        <input type="submit" value="Send" ></br>
+        </form>
+    {%else%}
+    <form method="POST">
+            {% csrf_token %}
+        <ln type="text" name="bron_id"  id="bron_id" >№:</ln><ln>{{book.id}}</ln></br>
+        <ln name="bron_status">Статус бронирования:</ln><ln>{{bron.bron_status}}</ln></br>
+        <ln name="bron_time">Время бронирования:</ln><ln>{{bron.bron_time}}</ln></br>
+        <label for="id_password">Пароль: </label>
+        <input type="text" name="password" required="" id="id_password"></br>
+        <input type="submit" value="Send" ></br>
+        {%endif%}
+</form>
+</div>
+
+{% endblock %}
